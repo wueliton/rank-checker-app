@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@constants/*": ["src/constants/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@services/*": ["src/services/*"],
+      "@components/*": ["src/presentation/components/*"],
+      "@/*": ["src/*"]
+    }
+  }
+}

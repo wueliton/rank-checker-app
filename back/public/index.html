@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      style="
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <canvas id="screenshots" width="800" height="600"></canvas>
+    </div>
+    <script>
+      const ws = new WebSocket("ws://localhost:3000");
+      const canvas = document.getElementById("screenshots");
+      const ctx = canvas.getContext("2d");
+
+      ws.onmessage = function (event) {
+        const screenshot = JSON.parse(event.data).data.screenshot;
+        const url = `data:image/jpeg;base64,${screenshot}`;
+
+        const img = new Image();
+
+        img.onload = function () {
+          ctx.drawImage(img, 0, 0);
+        };
+
+        img.src = url;
+      };
+
+      canvas.addEventListener("click", (event) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        ws.send(JSON.stringify({ type: "click", data: { x, y } }));
+      });
+    </script>
+  </body>
+</html>

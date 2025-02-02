@@ -1,0 +1,3 @@
+const KEYWORDS_STATE_LOCAL_STORAGE = "keywords";
+
+export { KEYWORDS_STATE_LOCAL_STORAGE };

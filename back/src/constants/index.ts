@@ -1,0 +1,3 @@
+const TWO_MINUTES_TIMEOUT = 120 * 1000;
+
+export { TWO_MINUTES_TIMEOUT };

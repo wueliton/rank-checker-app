@@ -1,0 +1,44 @@
+{
+  "name": "electron-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "Example of description app",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.rankchecker",
+    "productName": "RankChecker App",
+    "win": {
+      "target": "nsis",
+      "icon": "favicon.ico"
+    },
+    "includeSubNodeModules": true,
+    "extraResources": [
+      {
+        "from": "../front/dist",
+        "to": "./front/dist"
+      },
+      {
+        "from": "../back/dist",
+        "to": "./back/dist"
+      },
+      {
+        "from": "../back/node_modules",
+        "to": "./node_modules"
+      },
+      {
+        "from": "../back/public",
+        "to": "./back/public"
+      }
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^34.0.2",
+    "electron-builder": "^25.1.8"
+  }
+}
