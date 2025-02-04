@@ -1,0 +1,35 @@
+name: Build Windows Application
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_apps_dist:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: "front: install dependencies and build"
+        working-directory: ./front
+        run: npm install && npm run build
+      - name: "back: install dependencies and build"
+        working-directory: ./back
+        run: npm install && npm run build
+      - name: "electron: install dependencies"
+        working-directory: ./electron-app
+        run: npm install && npm run build
+      - name: upload electron build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rank-checker-windows
+          path: ./electron-app/dist
